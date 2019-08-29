@@ -24,7 +24,7 @@ bool cmp1(const pll &p1 , const pll &p2)
 }
 bool cmp2(const pll &p1 , const pll &p2)
 {
-	return p1.xx > p2.xx || (p1.xx == p2.xx && p1.yy > p2.yy);
+	return p1.xx + p1.yy > p2.xx + p2.yy;
 }
 
 
@@ -46,6 +46,8 @@ int main()
 		}
 	}
 	sort(pos.begin() , pos.end() , cmp1);
+	for(int i = 0 ; i < neg.size() ; i++)
+		neg[i].xx = max(neg[i].xx , -neg[i].yy);
 	sort(neg.begin() , neg.end() , cmp2);
 	bool ans = true;
 	for(int i = 0 ; i < pos.size() && ans ; i++)
@@ -57,31 +59,14 @@ int main()
 		}
 		r += pos[i].yy;
 	}
-	while(!neg.empty() && ans)
+	for(int i = 0 ; i < neg.size() && ans ; i++)
 	{
-		for(int i = 0 ; i < neg.size() && ans ; i++)
+		if(neg[i].xx > r)
 		{
-
-			if(neg[i].xx > r )
-			{
-				ans = false;
-				break;
-			}
-			if(i != neg.size()-1)
-			{
-				if(r + neg[i].yy >= neg[i+1].xx)
-				{
-					r += neg[i].yy;
-					neg.erase(neg.begin()+i);
-				}
-			}else
-			{
-				r += neg[i].yy;
-				neg.erase(neg.begin()+i);
-			}
-		}
-		if(r < 0)
 			ans = false;
+			break;
+		}
+		r += neg[i].yy;
 	}
 
 	if(ans)
