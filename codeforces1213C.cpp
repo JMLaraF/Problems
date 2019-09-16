@@ -22,26 +22,23 @@ const ld PI = acos(-1);
 
 int main()
 {_C
-	ll n , ans = 0;
-	cin >> n;
-	string s;
-	vll class1(26,0);
-	vll class2(26,0);
-
-	forn
+	ll q;
+	cin >> q;
+	while(q--)
 	{
-		cin >> s;
-		if(class1[s[0]-'a'] > class2[s[0]-'a'])
-			class2[s[0]-'a']++;
-		else
-			class1[s[0]-'a']++;
+		ll n , k , x , y , ans = 0;
+		cin >> n >> k;
+		vll v(11);
+		x = k%10;
+		for(int i = 1 ; i < 11 ; i++)
+		{
+			v[i] = v[i-1]+x;
+			x = (x+k)%10;
+		}
+		y = n/k;
+		ans += v[y%10] + v[10]*(y/10);
+		cout << ans << '\n';
 	}
-	for(int i = 0 ; i < 26 ; i++)
-	{
-		ans += (class1[i]*(class1[i]-1))/2;
-		ans += (class2[i]*(class2[i]-1))/2;
-	}
-	cout << ans << '\n';
 
 	#ifdef LOCAL
 	//	cout << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << endl;

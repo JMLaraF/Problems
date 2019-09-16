@@ -24,22 +24,24 @@ int main()
 {_C
 	ll n , ans = 0;
 	cin >> n;
-	string s;
-	vll class1(26,0);
-	vll class2(26,0);
-
+	vector<string> v(n);
 	forn
+		cin >> v[i];
+	for(int i = 0 ; i < n ; i++)
 	{
-		cin >> s;
-		if(class1[s[0]-'a'] > class2[s[0]-'a'])
-			class2[s[0]-'a']++;
-		else
-			class1[s[0]-'a']++;
+		ll x = 0;
+		for(int j = 0 ; j < n ; j++)
+			if(v[i][j] == 'C')
+				x++;
+		ans += (x*(x-1))/2;
 	}
-	for(int i = 0 ; i < 26 ; i++)
+	for(int i = 0 ; i < n ; i++)
 	{
-		ans += (class1[i]*(class1[i]-1))/2;
-		ans += (class2[i]*(class2[i]-1))/2;
+		ll x = 0;
+		for(int j = 0 ; j < n ; j++)
+			if(v[j][i] == 'C')
+				x++;
+		ans += (x*(x-1))/2;
 	}
 	cout << ans << '\n';
 

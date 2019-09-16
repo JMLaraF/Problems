@@ -22,24 +22,29 @@ const ld PI = acos(-1);
 
 int main()
 {_C
-	ll n , ans = 0;
-	cin >> n;
-	string s;
-	vll class1(26,0);
-	vll class2(26,0);
-
+	ll n , q , a , b , x, ans = 0;
+	cin >> n >> q;
+	vll v(n);
 	forn
 	{
-		cin >> s;
-		if(class1[s[0]-'a'] > class2[s[0]-'a'])
-			class2[s[0]-'a']++;
-		else
-			class1[s[0]-'a']++;
+		cin >> v[i];
 	}
-	for(int i = 0 ; i < 26 ; i++)
+	sort(v.begin() , v.end());
+	forn
 	{
-		ans += (class1[i]*(class1[i]-1))/2;
-		ans += (class2[i]*(class2[i]-1))/2;
+		if(i == 0)
+			continue;
+		v[i] += v[i-1];
+	}
+	while(q--)
+	{
+		cin >> a >> b;
+		cout << a << b << '\n';
+		x = b-a+1;
+		if(n-1-x >= 0)
+			ans += v[n-1]-v[n-1-x];
+		else
+			ans += v[n-1];
 	}
 	cout << ans << '\n';
 

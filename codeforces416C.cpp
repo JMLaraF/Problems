@@ -19,29 +19,47 @@ typedef long double ld;
 const ld PI = acos(-1);
 
 
-
 int main()
 {_C
-	ll n , ans = 0;
+	ll n , k , ans = 0;
 	cin >> n;
-	string s;
-	vll class1(26,0);
-	vll class2(26,0);
-
+	vpll v(n);
+	vll b(n,0);
+	vpll z;
 	forn
+		cin >> v[i].xx >> v[i].yy;
+	cin >> k;
+	vpll vk(k);
+	for(int i = 0 ; i < k ; i++)
 	{
-		cin >> s;
-		if(class1[s[0]-'a'] > class2[s[0]-'a'])
-			class2[s[0]-'a']++;
-		else
-			class1[s[0]-'a']++;
+		cin >> vk[i].xx;
+		vk[i].yy = i+1;
 	}
-	for(int i = 0 ; i < 26 ; i++)
+	sort(vk.begin() , vk.end());
+	for(int i = 0 ; i < k ; i++)
 	{
-		ans += (class1[i]*(class1[i]-1))/2;
-		ans += (class2[i]*(class2[i]-1))/2;
+		ll x = -1 , y = 0;
+		for(int j = 0 ; j < n ; j++)
+		{
+			if(b[j] == 0)
+			{
+				if(v[j].xx <= vk[i].xx && v[j].yy > y)
+				{
+					if(x >= 0)
+						b[x] = 0;
+					b[j] = 1;
+					x = j;
+					y = v[j].yy;
+				}
+			}
+		}
+		if(y > 0)
+			z.pb(pll(x+1,vk[i].yy));
+		ans += y;
 	}
-	cout << ans << '\n';
+	cout << z.size() << ' ' << ans << '\n';
+	for(int i = 0 ; i < z.size() ; i++)
+		cout << z[i].xx << ' ' << z[i].yy << '\n';
 
 	#ifdef LOCAL
 	//	cout << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << endl;

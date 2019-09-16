@@ -4,7 +4,7 @@
 #define yy second
 #define ERR 0.00000001
 #define INF (ll)1<<62
-#define MOD 1000000007
+#define MOD 998244353
 #define pb push_back
 #define forn for(int i = 0 ; i < n ; i++)
 using namespace std;
@@ -18,30 +18,23 @@ typedef vector<cp> polinomio;
 typedef long double ld;
 const ld PI = acos(-1);
 
-
+ll pot(ll a , ll b)
+{
+	ll ans = 1;
+	for(int i = 0 ; i < 63 ; i++)
+	{
+		if(((1LL<<i)&b)!=0)
+			ans = (ans*a)%MOD;
+		a = (a*a)%MOD;
+	}
+	return ans;
+}
 
 int main()
 {_C
-	ll n , ans = 0;
-	cin >> n;
-	string s;
-	vll class1(26,0);
-	vll class2(26,0);
-
-	forn
-	{
-		cin >> s;
-		if(class1[s[0]-'a'] > class2[s[0]-'a'])
-			class2[s[0]-'a']++;
-		else
-			class1[s[0]-'a']++;
-	}
-	for(int i = 0 ; i < 26 ; i++)
-	{
-		ans += (class1[i]*(class1[i]-1))/2;
-		ans += (class2[i]*(class2[i]-1))/2;
-	}
-	cout << ans << '\n';
+	ll h , w;
+	cin >> w >> h;
+	cout << pot(2,h+w) << '\n';
 
 	#ifdef LOCAL
 	//	cout << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << endl;

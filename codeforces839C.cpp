@@ -19,29 +19,56 @@ typedef long double ld;
 const ld PI = acos(-1);
 
 
+struct Grafo
+{
+	vvll Fx;
+	vector<ld> ans;
+	Grafo(ll n)
+	{
+		ans.assign(n,0.0);
+		Fx.assign(n,vll());
+	}
+	void unir(ll x , ll y)
+	{
+		Fx[x].pb(y);
+		Fx[y].pb(x);
+	}
+	ld DFS(ll x , ll p)
+	{
+		bool f = false;
+		vll::iterator it;
+		for(it = Fx[x].begin() ; it != Fx[x].end() ; it++)
+		{
+			if(*it == p)
+				continue;
+			ans[x] += DFS(*it,x);
+			f = true;
+		}
+		if(f)
+		{
+			if(x == 0)
+				ans[x] /= (ld)(Fx[x].size());
+			else
+				ans[x] /= (ld)(Fx[x].size()-1);
+			ans[x] += 1.0;
+		}
+		return ans[x];
+		
+	}
+};
 
 int main()
 {_C
-	ll n , ans = 0;
+	ll n , a , b;
 	cin >> n;
-	string s;
-	vll class1(26,0);
-	vll class2(26,0);
-
+	Grafo g(n--);
 	forn
 	{
-		cin >> s;
-		if(class1[s[0]-'a'] > class2[s[0]-'a'])
-			class2[s[0]-'a']++;
-		else
-			class1[s[0]-'a']++;
+		cin >> a >> b;
+		g.unir(a-1,b-1);
 	}
-	for(int i = 0 ; i < 26 ; i++)
-	{
-		ans += (class1[i]*(class1[i]-1))/2;
-		ans += (class2[i]*(class2[i]-1))/2;
-	}
-	cout << ans << '\n';
+	cout << fixed << setprecision(7) << g.DFS(0,-1) << '\n'; 
+
 
 	#ifdef LOCAL
 	//	cout << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << endl;

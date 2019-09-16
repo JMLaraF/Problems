@@ -18,30 +18,33 @@ typedef vector<cp> polinomio;
 typedef long double ld;
 const ld PI = acos(-1);
 
+void nextLucky(vll &v , string n)
+{
+	if(n.size() == 10)
+		return;
+	if(!n.empty())
+		v.pb(atoi(n.c_str()));
+	nextLucky(v,n+"4");
+	nextLucky(v,n+"7");
+	return;
+}
 
 
 int main()
 {_C
-	ll n , ans = 0;
-	cin >> n;
-	string s;
-	vll class1(26,0);
-	vll class2(26,0);
-
-	forn
+	ll s;
+	vll v;
+	cin >> s;
+	nextLucky(v,"");
+	sort(v.begin() , v.end());
+	for(int i = 0 ; i < v.size() ; i++)
 	{
-		cin >> s;
-		if(class1[s[0]-'a'] > class2[s[0]-'a'])
-			class2[s[0]-'a']++;
-		else
-			class1[s[0]-'a']++;
+		if(v[i] == s)
+		{
+			cout << i+1 << '\n';
+			return 0;
+		}
 	}
-	for(int i = 0 ; i < 26 ; i++)
-	{
-		ans += (class1[i]*(class1[i]-1))/2;
-		ans += (class2[i]*(class2[i]-1))/2;
-	}
-	cout << ans << '\n';
 
 	#ifdef LOCAL
 	//	cout << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << endl;

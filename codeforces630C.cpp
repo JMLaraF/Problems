@@ -24,22 +24,9 @@ int main()
 {_C
 	ll n , ans = 0;
 	cin >> n;
-	string s;
-	vll class1(26,0);
-	vll class2(26,0);
-
 	forn
 	{
-		cin >> s;
-		if(class1[s[0]-'a'] > class2[s[0]-'a'])
-			class2[s[0]-'a']++;
-		else
-			class1[s[0]-'a']++;
-	}
-	for(int i = 0 ; i < 26 ; i++)
-	{
-		ans += (class1[i]*(class1[i]-1))/2;
-		ans += (class2[i]*(class2[i]-1))/2;
+		ans += (1LL<<i+1);
 	}
 	cout << ans << '\n';
 
