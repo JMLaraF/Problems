@@ -22,45 +22,24 @@ const ld PI = acos(-1);
 
 int main()
 {_C
-	ll n , k , a = 0;
-	cin >> n >> k;
-	vll v , ans;
-	for(int i = 0 ; i < 40 ; i++)
+	ll a , b , x , y , k , ans = 0 , mn = 0;
+	cin >> a >> b >> x >> y >> k;
+	if(x > y)
 	{
-		if(((1LL<<i)&n) != 0)
-		{
-			v.pb(1LL<<i);
-			a += (1LL<<i);
-		}
+		swap(a,b);
+		swap(x,y);
 	}
-	if(k < v.size() || k > a)
-	{
-		cout << "NO\n";
-		return 0;
-	}
-	ll i = 0;
-	a = 0;
-	while(v.size()-a < k)
-	{
-		ll b = v[i];
-		if(b == 1)
-		{
-			ans.pb(1);
-			i++;
-		}
-		else
-		{
-			a++;
-			v.pb(b/2);
-			v.pb(b/2);
-			i++;
-		}
-	}
-	for(; i < v.size() ; i++)
-		ans.pb(v[i]);
-	cout << "YES\n";
-	for(int z = 0 ; z < ans.size() ; z++)
-		cout << ans[z] << ((z == ans.size()-1)?'\n':' ');	
+	ll c = min(a,(k/x));
+	ans += c;
+	ll kk = k-c*x;
+	if(kk > 0)
+		ans += min(b,kk/y);
+	x--;
+	y--;
+	ll z = x*a+y*b;
+	mn = max(0LL,k-z);
+	mn = min(mn,a+b);
+	cout << mn << ' ' << ans << '\n';
 
 	#ifdef LOCAL
 	//	cout << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << endl;

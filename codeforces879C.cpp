@@ -22,45 +22,32 @@ const ld PI = acos(-1);
 
 int main()
 {_C
-	ll n , k , a = 0;
-	cin >> n >> k;
-	vll v , ans;
-	for(int i = 0 ; i < 40 ; i++)
+	ll n , a , orf = 0 , andf = 1023 , xorf = 0 , x = 0;
+	char c;
+	cin >> n;
+	forn
 	{
-		if(((1LL<<i)&n) != 0)
-		{
-			v.pb(1LL<<i);
-			a += (1LL<<i);
-		}
-	}
-	if(k < v.size() || k > a)
-	{
-		cout << "NO\n";
-		return 0;
-	}
-	ll i = 0;
-	a = 0;
-	while(v.size()-a < k)
-	{
-		ll b = v[i];
-		if(b == 1)
-		{
-			ans.pb(1);
-			i++;
-		}
+		cin >> c >> a;
+		if(c == '|')
+			orf |= a;
+		else if(c == '&')
+			andf &= a;
 		else
-		{
-			a++;
-			v.pb(b/2);
-			v.pb(b/2);
-			i++;
-		}
+			xorf ^= a;
 	}
-	for(; i < v.size() ; i++)
-		ans.pb(v[i]);
-	cout << "YES\n";
-	for(int z = 0 ; z < ans.size() ; z++)
-		cout << ans[z] << ((z == ans.size()-1)?'\n':' ');	
+	if(orf > 0)
+		x++;
+	if(andf != 1023)
+		x++;
+	if(xorf > 0)
+		x++;
+	cout << x << '\n';
+	if(xorf > 0)
+		cout << "^ " << xorf << '\n';
+	if(orf > 0)
+		cout << "| " << orf << '\n';
+	if(andf != 1023)
+		cout << "& " << andf << '\n';
 
 	#ifdef LOCAL
 	//	cout << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << endl;

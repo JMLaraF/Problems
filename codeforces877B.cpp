@@ -18,49 +18,34 @@ typedef vector<cp> polinomio;
 typedef long double ld;
 const ld PI = acos(-1);
 
+vvll DP(4 , vll (5005 , -1));
+string s;
+
+ll dp(ll x , ll y)
+{
+	if(y > 2)
+		return 0;
+	if(x == s.size())
+		return 0;
+	if(DP[y][x] != -1)
+		return DP[y][x];
+	ll f = 0;
+	if(((y == 0 || y == 2) && s[x] == 'a') || (y == 1 && s[x] == 'b'))
+		f = max(dp(x+1,y)+1,dp(x+1,y+1)+1);
+	DP[y][x] = max(f,dp(x+1,y));
+	return DP[y][x];
+
+}
 
 
 int main()
 {_C
-	ll n , k , a = 0;
-	cin >> n >> k;
-	vll v , ans;
-	for(int i = 0 ; i < 40 ; i++)
-	{
-		if(((1LL<<i)&n) != 0)
-		{
-			v.pb(1LL<<i);
-			a += (1LL<<i);
-		}
-	}
-	if(k < v.size() || k > a)
-	{
-		cout << "NO\n";
-		return 0;
-	}
-	ll i = 0;
-	a = 0;
-	while(v.size()-a < k)
-	{
-		ll b = v[i];
-		if(b == 1)
-		{
-			ans.pb(1);
-			i++;
-		}
-		else
-		{
-			a++;
-			v.pb(b/2);
-			v.pb(b/2);
-			i++;
-		}
-	}
-	for(; i < v.size() ; i++)
-		ans.pb(v[i]);
-	cout << "YES\n";
-	for(int z = 0 ; z < ans.size() ; z++)
-		cout << ans[z] << ((z == ans.size()-1)?'\n':' ');	
+	cin >> s;
+	ll ans = 0;
+	for(int j = 0 ; j < 3 ; j++)
+		for(int i = 0 ; i < s.size() ; i++)
+			ans = max(ans , dp(i,j));
+	cout << ans << '\n';
 
 	#ifdef LOCAL
 	//	cout << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << endl;
