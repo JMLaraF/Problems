@@ -8,7 +8,7 @@
 #define pb push_back
 #define forn for(int i = 0 ; i < n ; i++)
 using namespace std;
-typedef long long ll;
+typedef int ll;
 typedef pair<ll,ll> pll;
 typedef vector<ll> vll;
 typedef vector<vll> vvll;
@@ -19,33 +19,34 @@ typedef long double ld;
 const ld PI = acos(-1);
 
 
+
 int main()
-{_C
-	ll x;
-	string s;
+{
+	string s , ans = "";
 	cin >> s;
-	cout << s[0];
-	for(int i = 1 ; i < s.size() ; i++)
+	for(int i = 0 ; i < s.size() ; i++)
 	{
-		if(s[i] == s[i-1])
+		if(i < s.size()-1 && s[i] == s[i+1])
 		{
-			x = i;
-			if(i < s.size()-2 && s[i+1] != s[i] && s[i+1] == s[i+2])
+			ll j = i+2;
+			while(j < s.size() && s[j] == s[i])j++;
+			ans += s[i];
+			i = j-1;
+			j = (ll)(ans.size()-3);
+			if(j >= 0)
 			{
-				cout << s[i+1];
-				i += 2;
+				if(ans[j] != ans[j+1])
+					ans += s[i];
 			}else
 			{
-				while(s[++i] == s[x]);
-				i--;
-				cout << s[x];
+				ans += s[i];
 			}
 		}else
 		{
-			cout << s[i];
+			ans += s[i];
 		}
 	}
-	cout << '\n';
+	cout << ans << '\n';
 
 	#ifdef LOCAL
 	//	cout << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << endl;

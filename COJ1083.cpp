@@ -19,27 +19,34 @@ typedef long double ld;
 const ld PI = acos(-1);
 
 
-
 int main()
 {_C
-	ll r , g , b , x , y = 0 , z = 0;
-	cin >> r >> g >> b;
-	x = (r/3)+(g/3)+(b/3);
-	if(r && g && b)
+	
+	ll l , k , m , n;
+	cin >> l >> k >> m;
+	string s;
+	vll v(1000005);
+	v[0] = 1;
+	for(int i = 1 ; i <= 1000000 ; i++)
 	{
-		--r;
-		--g;
-		--b;
-		y = (r/3)+(g/3)+(b/3)+1;
-		if(r && g && b)
-		{
-			--r;
-			--g;
-			--b;
-			z = (r/3)+(g/3)+(b/3)+2;
-		}
+		bool f = false;
+		f |= (v[i-1] == 1);
+		if(i >= l)
+			f |= (v[i-l] == 1);
+		if(i >= k)
+			f |= (v[i-k] == 1);
+		if(!f)
+			v[i] = 1;
 	}
-	cout << max(x,max(y,z)) << '\n';
+	while(m--)
+	{
+		cin >> n;
+		if(v[n])
+			s += 'B';
+		else
+			s += 'A';
+	}
+	cout << s << '\n';
 
 	#ifdef LOCAL
 	//	cout << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << endl;

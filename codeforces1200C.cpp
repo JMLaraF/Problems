@@ -22,25 +22,49 @@ const ld PI = acos(-1);
 
 int main()
 {_C
-	ll r , g , b , x , y = 0 , z = 0;
-	cin >> r >> g >> b;
-	x = (r/3)+(g/3)+(b/3);
-	if(r && g && b)
+	ll n , m , q , g;
+	ll a , b , x , y;
+	cin >> n >> m >> q;
+	g = __gcd(n,m);
+	n /= g;
+	m /= g;
+	while(q--)
 	{
-		--r;
-		--g;
-		--b;
-		y = (r/3)+(g/3)+(b/3)+1;
-		if(r && g && b)
+		ll q = 0;
+		cin >> a >> x >> b >> y;
+		x--;
+		y--;
+		if(a == 1)
 		{
-			--r;
-			--g;
-			--b;
-			z = (r/3)+(g/3)+(b/3)+2;
+			if(x >= n)
+			{
+				q = x/n;
+				x %= n;
+			}
+		}else
+		{
+			if(x >= m)
+			{
+				q = x/m;
+				x %= m;
+			}
+		}
+		if(b == 1)
+		{
+			y -= n*q;
+			if(y >= 0 && y < n)
+				cout << "YES\n";
+			else
+				cout << "NO\n";
+		}else
+		{
+			y -= m*q;
+			if(y >= 0 && y < m)
+				cout << "YES\n";
+			else
+				cout << "NO\n";
 		}
 	}
-	cout << max(x,max(y,z)) << '\n';
-
 	#ifdef LOCAL
 	//	cout << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << endl;
 	#endif

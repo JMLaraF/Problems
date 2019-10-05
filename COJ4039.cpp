@@ -18,28 +18,30 @@ typedef vector<cp> polinomio;
 typedef long double ld;
 const ld PI = acos(-1);
 
+vll DVS(1000005,2);
 
+void Divisores()
+{
+	for(int i = 2 ; i <= 1000000 ; i++)
+	{
+		for(int j = i+1 ; j <= 1000000 ; j += i+1)
+		{
+			DVS[j]++;
+		}
+	}
+}
 
 int main()
 {_C
-	ll r , g , b , x , y = 0 , z = 0;
-	cin >> r >> g >> b;
-	x = (r/3)+(g/3)+(b/3);
-	if(r && g && b)
+	Divisores();
+	ll n , q;
+	cin >> n;
+	forn
 	{
-		--r;
-		--g;
-		--b;
-		y = (r/3)+(g/3)+(b/3)+1;
-		if(r && g && b)
-		{
-			--r;
-			--g;
-			--b;
-			z = (r/3)+(g/3)+(b/3)+2;
-		}
+		cin >> q;
+		cout <<"Case #" << i+1 << ": ";
+		cout << q - DVS[q] << '\n';
 	}
-	cout << max(x,max(y,z)) << '\n';
 
 	#ifdef LOCAL
 	//	cout << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << endl;

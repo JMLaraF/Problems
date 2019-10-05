@@ -22,24 +22,24 @@ const ld PI = acos(-1);
 
 int main()
 {_C
-	ll r , g , b , x , y = 0 , z = 0;
-	cin >> r >> g >> b;
-	x = (r/3)+(g/3)+(b/3);
-	if(r && g && b)
+	ll t , n;
+	cin >> t;
+	for(int i = 1 ; i <= t ; i++)
 	{
-		--r;
-		--g;
-		--b;
-		y = (r/3)+(g/3)+(b/3)+1;
-		if(r && g && b)
+		ll a , b , c = 0;
+		cin >> n;
+		forn
 		{
-			--r;
-			--g;
-			--b;
-			z = (r/3)+(g/3)+(b/3)+2;
+			cin >> a >> b;
+			b = b-1-a;
+			c ^= b;
 		}
+		cout << "Case " << i << ": ";
+		if(c)
+			cout << "Alice\n";
+		else
+			cout << "Bob\n";
 	}
-	cout << max(x,max(y,z)) << '\n';
 
 	#ifdef LOCAL
 	//	cout << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << endl;

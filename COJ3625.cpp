@@ -19,27 +19,28 @@ typedef long double ld;
 const ld PI = acos(-1);
 
 
-
 int main()
 {_C
-	ll r , g , b , x , y = 0 , z = 0;
-	cin >> r >> g >> b;
-	x = (r/3)+(g/3)+(b/3);
-	if(r && g && b)
+
+	set<ll> Fib;
+	ll x = 1 , y = 1 , z = 1;
+	while(z < 5005)
 	{
-		--r;
-		--g;
-		--b;
-		y = (r/3)+(g/3)+(b/3)+1;
-		if(r && g && b)
-		{
-			--r;
-			--g;
-			--b;
-			z = (r/3)+(g/3)+(b/3)+2;
-		}
+		z = x+y;
+		Fib.insert(z);
+		x = y;
+		y = z;
 	}
-	cout << max(x,max(y,z)) << '\n';
+	ll c , n;
+	cin >> c;
+	while(c--)
+	{
+		cin >> n;
+		if(Fib.count(n))
+			cout << "Harry wins\n";
+		else
+			cout << "Ron wins\n";			
+	}
 
 	#ifdef LOCAL
 	//	cout << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << endl;

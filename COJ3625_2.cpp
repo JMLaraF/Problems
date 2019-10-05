@@ -18,28 +18,42 @@ typedef vector<cp> polinomio;
 typedef long double ld;
 const ld PI = acos(-1);
 
+vvll DP(5005 , vll (5005 , -1));
+
+ll dp(ll x , ll y)
+{
+	if(x == 0 || x == 3)
+		return 1;
+	if(x < 0)
+		return 0;
+	if(DP[x][y] != -1)
+		return DP[x][y];
+	ll k = max(0LL,(ll)(ceil((double)x/3.0)-1.0));
+	bool f = false;
+	for(int i = 1 ; i <= min(k,2*y) && !f ; i++)
+		f |= dp(x-i,i);
+	if(f)
+		DP[x][y] = 0;
+	else
+		DP[x][y] = 1;
+	return DP[x][y];
+}
 
 
 int main()
 {_C
-	ll r , g , b , x , y = 0 , z = 0;
-	cin >> r >> g >> b;
-	x = (r/3)+(g/3)+(b/3);
-	if(r && g && b)
+
+	ll c , n;
+	cin >> c;
+	while(c--)
 	{
-		--r;
-		--g;
-		--b;
-		y = (r/3)+(g/3)+(b/3)+1;
-		if(r && g && b)
-		{
-			--r;
-			--g;
-			--b;
-			z = (r/3)+(g/3)+(b/3)+2;
-		}
+		cin >> n;
+		if(dp(n,n))
+			cout << "Harry wins\n";
+		else
+			cout << "Ron wins\n";				
 	}
-	cout << max(x,max(y,z)) << '\n';
+
 
 	#ifdef LOCAL
 	//	cout << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << endl;

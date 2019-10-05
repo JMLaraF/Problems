@@ -5,6 +5,7 @@
 #define ERR 0.00000001
 #define INF (ll)1<<62
 #define MOD 1000000007
+#define pb push_back
 #define forn for(int i = 0 ; i < n ; i++)
 using namespace std;
 typedef long long ll;
@@ -18,6 +19,7 @@ typedef long double ld;
 const ld PI = acos(-1);
 
 
+
 int main()
 {_C
 	ll n;
@@ -26,14 +28,13 @@ int main()
 	forn
 		cin >> v[i];
 	sort(v.begin() , v.end());
-	for(int i = 0 ; i < n/2 ; i++)
-	{
-		cout << v[n-1-i] << ' ' << v[i] << ((i == (n/2)-1)?"":" ");
-	}
-	if(n%2!=0)
-		cout << ' ' << v[n/2] << '\n';
-	else
-		cout << '\n';
+	cout << v[n-1] << ' ';
+	for(int i = 1 ; i < n-1 ; i++)
+		cout << v[i] << ' ';
+	cout << v[0] << '\n';
+
+
+
 	#ifdef LOCAL
 	//	cout << "Time elapsed: " << 1.0 * clock() / CLOCKS_PER_SEC << endl;
 	#endif
